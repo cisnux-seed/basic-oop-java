@@ -1,3 +1,5 @@
+import entity.Todo;
+
 import java.util.Scanner;
 
 public class Main {
@@ -84,6 +86,11 @@ public class Main {
         return scanner.nextLine();
     }
 
+    public static int inputNumber(String hint) {
+        System.out.print(hint);
+        return scanner.nextInt();
+    }
+
     public static void testInput() {
         final var result = input("What's your choice? ");
         System.out.println(result);
@@ -158,12 +165,13 @@ public class Main {
     }
 
     public static void editViewTodoList() {
-        final var todoNumber = input("Enter a todo number! (enter x to cancel): ");
+        final int todoNumber = inputNumber("Enter a todo number: ");
+        scanner.skip("\n");
         final var newTodo = input("Enter new todo to update! (enter x to cancel): ");
-        if (todoNumber.equals("x") || newTodo.equals("x"))
+        if (newTodo.equals("x"))
             return;
 
-        final var isUpdated = editTodoList(Integer.parseInt(todoNumber), newTodo);
+        final var isUpdated = editTodoList(todoNumber, newTodo);
         if (!isUpdated) {
             System.out.println("the todo number was not found, please enter the correct number");
             editViewTodoList();
